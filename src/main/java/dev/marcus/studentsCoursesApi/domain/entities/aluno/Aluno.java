@@ -2,7 +2,7 @@ package dev.marcus.studentsCoursesApi.domain.entities.aluno;
 
 import dev.marcus.studentsCoursesApi.domain.entities.Curso.Curso;
 import dev.marcus.studentsCoursesApi.domain.entities.aluno.DTOs.AlunoDTO;
-import dev.marcus.studentsCoursesApi.domain.entities.pessoa.Pessoa;
+import dev.marcus.studentsCoursesApi.domain.entities.usuario.Usuario;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Aluno extends Pessoa{
+public class Aluno extends Usuario{
 
     @Column(name = "ira", nullable = false)
     private Integer ira;
