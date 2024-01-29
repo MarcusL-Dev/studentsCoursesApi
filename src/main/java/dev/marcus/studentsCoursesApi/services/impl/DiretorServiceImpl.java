@@ -3,6 +3,7 @@ package dev.marcus.studentsCoursesApi.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import dev.marcus.studentsCoursesApi.domain.entities.diretor.Diretor;
@@ -18,7 +19,9 @@ public class DiretorServiceImpl implements DiretorService{
 
     @Override
     public Diretor createDiretor(DiretorDTO diretorData) {
-        var newDiretor = new Diretor(diretorData);
+        var hashadSenha = new BCryptPasswordEncoder().encode(diretorData.senha());
+        var newDiretor = new Diretor(diretorData, hashadSenha);
+
         diretorRepository.save(newDiretor);
         return newDiretor;
     }

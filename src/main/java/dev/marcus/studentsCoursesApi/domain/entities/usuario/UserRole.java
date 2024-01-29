@@ -1,9 +1,9 @@
 package dev.marcus.studentsCoursesApi.domain.entities.usuario;
 
 public enum UserRole {
-    
-    DIRETOR("diretor"),
-    ALUNO("aluno");
+
+    ADMIN("admin"),
+    USER("user");
 
     private String role;
 

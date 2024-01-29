@@ -22,8 +22,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "pessoa")
-@Table(name = "pessoa")
+@Entity(name = "usuario")
+@Table(name = "usuario")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -39,34 +39,35 @@ public class Usuario implements UserDetails{
     private String sobrenome;
     @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Column(name = "senha", nullable = false)
     @JsonIgnore
-    private String senha;
+    private String hashadSenha;
 
     private UserRole userRole;
 
-    public Usuario(String nome, String sobrenome, String cpf, String email, String senha) {
+    public Usuario(String nome, String sobrenome, String cpf, String email, String hashadSenha, UserRole role) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
         this.email = email;
-        this.senha = senha;
+        this.hashadSenha = hashadSenha;
+        this.userRole = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.userRole == UserRole.DIRETOR) return List.of(
-            new SimpleGrantedAuthority("ROLE_DIRETOR"),
-            new SimpleGrantedAuthority("ROLE_ALUNO")
+        if (this.userRole == UserRole.ADMIN) return List.of(
+            new SimpleGrantedAuthority("ROLE_ADMIN"),
+            new SimpleGrantedAuthority("ROLE_USER")
         );
-        else return List.of(new SimpleGrantedAuthority("ROLE_ALUNO"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getPassword() {
-        return this.senha;
+        return this.hashadSenha;
     }
 
     @Override
